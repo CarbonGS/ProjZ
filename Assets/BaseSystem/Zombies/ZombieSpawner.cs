@@ -4,8 +4,8 @@ public class ZombieSpawner : MonoBehaviour
 {
     public GameObject zombiePrefab; // Prefab of the zombie to spawn
     public Transform player; // Reference to the player's transform
-    public float activationDistance = 20.0f; // Distance to activate spawning
-    public float closeDistance = 10.0f; // Distance to stop spawning
+    public float activationDistance = 30.0f; // Distance to activate spawning
+    public float closeDistance = 7.0f; // Distance to stop spawning
     public bool hasSpawned = false; // Flag to check if a zombie has been spawned
     public float spawnInterval = 5.0f; // Time interval between spawns
 
