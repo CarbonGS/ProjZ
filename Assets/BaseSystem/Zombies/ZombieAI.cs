@@ -7,6 +7,7 @@ public class ZombieAI : MonoBehaviour
     public float attackRange = 2.0f; // Distance to start attacking
     public float damage = 10.0f;
     public float attackCooldown = 1.5f; // Time between attacks
+    public GameObject playerCharacter; // Reference to the player character
 
     private NavMeshAgent agent; // NavMeshAgent component
     private float lastAttackTime; // Time of the last attack
@@ -15,6 +16,7 @@ public class ZombieAI : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        playerCharacter = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
@@ -41,7 +43,13 @@ public class ZombieAI : MonoBehaviour
 
     void AttackPlayer()
     {
-        // Implement damage to the player here
-        Debug.Log("Attacking player for " + damage + " damage.");
+        if (playerCharacter != null)
+        {
+            playerCharacter.GetComponent<Player>().TakeDamage(damage);
+        }
+        else         
+        {
+            Debug.LogWarning("Player character not found for attacking.");
+        }
     }
 }
