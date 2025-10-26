@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class Barrier : MonoBehaviour
 {
@@ -6,9 +7,11 @@ public class Barrier : MonoBehaviour
     private GameObject playerCharacter; // Reference to the player character
     private BoxCollider buyZone; // box collider sub component for buying
     private bool CanBuy = false;
+    public TMP_Text notificationText; // Assign in inspector
 
     void Start()
     {
+        
         playerCharacter = GameObject.FindWithTag("Player");
         buyZone = GetComponent<BoxCollider>();
         buyZone.isTrigger = true; // Ensure the collider is set as a trigger
@@ -19,7 +22,12 @@ public class Barrier : MonoBehaviour
         if (other.gameObject == playerCharacter)
         {
             CanBuy = true;
+            if (notificationText != null)
+            {
+               notificationText.text = $"Press 'F' to buy barrier for {buyValue} points";
+            }
         }
+           
     }
 
     void OnTriggerExit(Collider other)
@@ -27,6 +35,10 @@ public class Barrier : MonoBehaviour
         if (other.gameObject == playerCharacter)
         {
             CanBuy = false;
+            if (notificationText != null)
+            {
+                notificationText.text = "";
+            }
         }
     }
 
@@ -49,6 +61,7 @@ public class Barrier : MonoBehaviour
     public void BuyBarrier(Player player)
     {
         player.points -= (int)buyValue;
+        notificationText.text = "";
         Destroy(gameObject); // Remove barrier after purchase
         Debug.Log("Barrier purchased for " + buyValue + " points. Remaining points: " + player.points);
     }
