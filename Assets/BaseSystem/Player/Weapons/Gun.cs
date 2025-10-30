@@ -4,9 +4,16 @@ using System.Collections;
 
 public class Gun : MonoBehaviour
 {
-    // Events for shooting and reloading
+    // Events for shooting
     public UnityEvent OnGunShoot;
-    public UnityEvent OnGunReload;
+    private bool isShooting = false;
+    public float clickDuration = 0.2f; // Duration to consider as a click
+    private float shootTimer = 0f;
+
+    // Audio events
+    public AudioSource shootSource;
+    public AudioClip shootLoopClip;
+    public AudioClip shootStopClip;
 
     // Fire rate
     [SerializeField] public float fireRate = 0.5f;
@@ -29,6 +36,16 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            StartShooting();
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            StopShooting();
+        }
+
         if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
             OnGunShoot.Invoke();
@@ -36,9 +53,45 @@ public class Gun : MonoBehaviour
             nextFireTime = Time.time + fireRate;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        // Handle short click playback
+        if (isShooting && !Input.GetMouseButton(0))
         {
-            OnGunReload.Invoke();
+            shootTimer += Time.deltaTime;
+            if (shootTimer >= clickDuration)
+            {
+                StopShooting();
+            }
+        }
+    }
+
+    void StartShooting()
+    {
+        if (!isShooting)
+        {
+            shootSource.clip = shootLoopClip;
+            shootSource.loop = true;
+
+            shootSource.pitch = Random.Range(0.95f, 1.05f); // Randomize pitch slightly
+
+            shootSource.Play();
+            isShooting = true;
+            shootTimer = 0f;
+        }
+    }
+
+    void StopShooting()
+    {
+        if (isShooting)
+        {
+            shootSource.Stop();
+            shootSource.loop = false;
+
+            if (shootStopClip != null)
+            {
+                shootSource.PlayOneShot(shootStopClip);
+            }
+
+            isShooting = false;
         }
     }
 

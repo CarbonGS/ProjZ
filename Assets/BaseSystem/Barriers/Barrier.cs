@@ -4,14 +4,16 @@ using TMPro;
 public class Barrier : MonoBehaviour
 {
     public float buyValue; // Cost to buy the barrier
+    public TMP_Text notificationText;
+    public AudioSource audioSource;
+    public AudioClip buySound;
+
     private GameObject playerCharacter; // Reference to the player character
     private BoxCollider buyZone; // box collider sub component for buying
     private bool CanBuy = false;
-    public TMP_Text notificationText; // Assign in inspector
 
     void Start()
     {
-        
         playerCharacter = GameObject.FindWithTag("Player");
         buyZone = GetComponent<BoxCollider>();
         buyZone.isTrigger = true; // Ensure the collider is set as a trigger
@@ -60,8 +62,13 @@ public class Barrier : MonoBehaviour
 
     public void BuyBarrier(Player player)
     {
+        if (audioSource != null && buySound != null)
+        {
+            audioSource.PlayOneShot(buySound);
+        }
         player.points -= (int)buyValue;
         notificationText.text = "";
+        FindObjectOfType<UI>()?.UpdatePointsText();
         Destroy(gameObject); // Remove barrier after purchase
         Debug.Log("Barrier purchased for " + buyValue + " points. Remaining points: " + player.points);
     }

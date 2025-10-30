@@ -15,6 +15,8 @@ public class Entity : MonoBehaviour
             if (health <= 0)
             {
                 playerCharacter.GetComponent<Player>().points += 100;
+                FindObjectOfType<GameManager>().RegisterKill(); // Register kill in GameManager
+                FindObjectOfType<UI>()?.UpdatePointsText();
                 Destroy(gameObject);
             }
         }
@@ -22,7 +24,7 @@ public class Entity : MonoBehaviour
 
     void Start()
     {
-        Health = StartHealth;
+        Health = StartHealth * FindObjectOfType<GameManager>().healthMultiplier;
         playerCharacter = GameObject.FindWithTag("Player");
     }
 }

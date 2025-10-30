@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class Player : MonoBehaviour
 
     // Player points management
     public int points = 100; // Player points (100 for default)
+
+    // Player Audio
+    public AudioSource playerAudio; // Audio source for player sounds
+    public AudioClip dieSound; // Sound played on player death
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -63,13 +68,36 @@ public class Player : MonoBehaviour
 
     void Die()
     {
-        // Quits game (debug mode only)
         Debug.Log("Player has died.");
+
+        // Pause the game
+        Time.timeScale = 0f;
+
+        if (playerAudio != null && dieSound != null)
+        {
+            playerAudio.PlayOneShot(dieSound);
+            StartCoroutine(WaitForDeathAudio());
+        }
+        else
+        {
+            QuitGame(); // fallback
+        }
+    }
+
+    IEnumerator WaitForDeathAudio()
+    {
+        // Wait in real time, not game time
+        yield return new WaitForSecondsRealtime(dieSound.length);
+        QuitGame();
+    }
+
+    void QuitGame()
+    {
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+    UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
-
     }
+
 }

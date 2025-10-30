@@ -11,12 +11,17 @@ public class ZombieAI : MonoBehaviour
 
     private NavMeshAgent agent; // NavMeshAgent component
     private float lastAttackTime; // Time of the last attack
+    private ZombieAudio zombieAudio; // Reference to ZombieAudio component
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         playerCharacter = GameObject.FindWithTag("Player");
+        zombieAudio = GetComponent<ZombieAudio>();
+
+        float multiplier = FindObjectOfType<GameManager>().damageMultiplier;
+        damage *= multiplier;
     }
 
     // Update is called once per frame
@@ -45,6 +50,7 @@ public class ZombieAI : MonoBehaviour
     {
         if (playerCharacter != null)
         {
+            zombieAudio.PlayAttackSound();
             playerCharacter.GetComponent<Player>().TakeDamage(damage);
         }
         else         
