@@ -7,6 +7,7 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI pointsText;
     private GameManager gameManager;
     public GameObject player;
+    public MainMenuManager mmm;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
