@@ -6,7 +6,9 @@ public class MainMenuManager : MonoBehaviour
     public GameObject[] objectsToDeactivate; // Assign all non-menu GameObjects here in Inspector
     public GameObject mmCam;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    /// <summary>
+    /// Initializes the main menu, activates the menu UI, and deactivates all specified game objects.
+    /// </summary>
     void Start()
     {
         Cursor.visible = true;
@@ -19,6 +21,9 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Starts the game by hiding the menu UI, activating all specified game objects, and deactivating the main menu camera.
+    /// </summary>
     public void StartGame()
     {
         Cursor.visible = false;
@@ -32,12 +37,17 @@ public class MainMenuManager : MonoBehaviour
         if (mmCam != null) mmCam.SetActive(false);
     }
 
+    /// <summary>
+    /// Quits the application.
+    /// </summary>
     public void QuitGame()
     {
         Application.Quit();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Called once per frame. Currently not used.
+    /// </summary>
     void Update()
     {
         

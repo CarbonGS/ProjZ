@@ -5,8 +5,10 @@ public class BackgroundMusic : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip backgroundMusicClip;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    /// <summary>
+    /// Initializes the audio source by assigning the background music clip, 
+    /// enabling looping, and starting playback.
+    /// </summary>
     void Start()
     {
         audioSource.clip = backgroundMusicClip;
@@ -14,7 +16,9 @@ public class BackgroundMusic : MonoBehaviour
         audioSource.Play();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Ensures the background music keeps playing by restarting it if it stops.
+    /// </summary>
     void Update()
     {
         if (!audioSource.isPlaying)

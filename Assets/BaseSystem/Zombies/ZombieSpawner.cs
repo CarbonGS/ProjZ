@@ -9,24 +9,31 @@ public class ZombieSpawner : MonoBehaviour
     public bool hasSpawned = false; // Flag to check if a zombie has been spawned
     public float spawnInterval; // Time interval between spawns
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    /// <summary>
+    /// Start is called once before the first execution of Update after the MonoBehaviour is created
+    /// </summary>
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
     void Update()
     {
 
     }
 
+    /// <summary>
+    /// Spawns a zombie if conditions are met
+    /// </summary>
     public void SpawnZombie()
     {
         if (hasSpawned) return; // Prevent double-spawning
 
         // Check with GameManager if spawning is allowed
-        GameManager gm = FindObjectOfType<GameManager>();
+        GameManager gm = FindAnyObjectByType<GameManager>();
         if (!gm.CanSpawnZombie()) return;
 
         gm.RegisterSpawn();
@@ -53,11 +60,14 @@ public class ZombieSpawner : MonoBehaviour
         }
 
         // Adjust spawn interval based on game manager's spawn rate multiplier
-        float spawnRateMultiplier = FindObjectOfType<GameManager>().spawnRateMultiplier;
+        float spawnRateMultiplier = gm.spawnRateMultiplier;
         float cooldown = Mathf.Max(spawnInterval / spawnRateMultiplier, 3f); // Cap at minimum 3 seconds
         Invoke("ResetSpawn", cooldown);
     }
 
+    /// <summary>
+    /// Resets the spawn flag to allow for new zombie spawning
+    /// </summary>
     void ResetSpawn()
     {
         hasSpawned = false;

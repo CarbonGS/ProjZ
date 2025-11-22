@@ -13,6 +13,9 @@ public class Damage : MonoBehaviour
         PlayerCamera = Camera.main.transform;
     }
 
+    /// <summary>
+    /// Applies damage to the entity hit by the player's shot and creates a visual hole
+    /// </summary>
     public void Shoot()
     {   
         RaycastHit hit;

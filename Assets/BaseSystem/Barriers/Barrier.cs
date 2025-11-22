@@ -12,6 +12,9 @@ public class Barrier : MonoBehaviour
     private BoxCollider buyZone; // box collider sub component for buying
     private bool CanBuy = false;
 
+    /// <summary>
+    /// Initialize player character and buy zone on start.
+    /// </summary>
     void Start()
     {
         playerCharacter = GameObject.FindWithTag("Player");
@@ -19,6 +22,10 @@ public class Barrier : MonoBehaviour
         buyZone.isTrigger = true; // Ensure the collider is set as a trigger
     }
 
+    /// <summary>
+    /// Check for player entering the trigger zone to enable buying.
+    /// </summary>
+    /// <param name="other">The collider of the object that entered the trigger.</param>
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == playerCharacter)
@@ -32,6 +39,10 @@ public class Barrier : MonoBehaviour
            
     }
 
+    /// <summary>
+    /// Check for player exiting the trigger zone to disable buying.
+    /// </summary>
+    /// <param name="other">The collider of the object that exited the trigger.</param>
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject == playerCharacter)
@@ -44,6 +55,9 @@ public class Barrier : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates every frame to check if the player tries to buy the barrier.
+    /// </summary>
     void Update()
     {
         if(CanBuy && Input.GetKeyDown(KeyCode.F))
@@ -60,6 +74,10 @@ public class Barrier : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles the barrier purchase process.
+    /// </summary>
+    /// <param name="player">The player purchasing the barrier.</param>
     public void BuyBarrier(Player player)
     {
         if (audioSource != null && buySound != null)
@@ -68,7 +86,7 @@ public class Barrier : MonoBehaviour
         }
         player.points -= (int)buyValue;
         notificationText.text = "";
-        FindObjectOfType<UI>()?.UpdatePointsText();
+        FindAnyObjectByType<UI>()?.UpdatePointsText();
         Destroy(gameObject); // Remove barrier after purchase
         Debug.Log("Barrier purchased for " + buyValue + " points. Remaining points: " + player.points);
     }

@@ -20,7 +20,9 @@ public class Player : MonoBehaviour
     public AudioSource playerAudio; // Audio source for player sounds
     public AudioClip dieSound; // Sound played on player death
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    /// <summary>
+    /// Initializes the player object, setting up references and initial health values.
+    /// </summary>
     void Start()
     {
         healthBar = GameObject.Find("HealthBar").GetComponent<Slider>(); // Find health bar UI
@@ -28,7 +30,9 @@ public class Player : MonoBehaviour
         targetHealth = maxHealth; // Initialize target health
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Updates the player state each frame, handling health regeneration and UI updates.
+    /// </summary>
     void Update()
     {
         healthBar.value = Mathf.Lerp(healthBar.value, targetHealth / maxHealth, Time.deltaTime * 5); 
@@ -50,6 +54,10 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Inflicts damage to the player, reducing current health and handling death if health falls to zero or below.
+    /// </summary>
+    /// <param name="amount">The amount of damage to inflict.</param>
     public void TakeDamage(float amount)
     {
         currentHealth -= amount;
@@ -66,6 +74,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles the player's death, playing a death sound and quitting the game after a delay.
+    /// </summary>
     void Die()
     {
         Debug.Log("Player has died.");
@@ -84,6 +95,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Coroutine that waits for the death audio to finish playing before quitting the game.
+    /// </summary>
     IEnumerator WaitForDeathAudio()
     {
         // Wait in real time, not game time
@@ -91,6 +105,9 @@ public class Player : MonoBehaviour
         QuitGame();
     }
 
+    /// <summary>
+    /// Quits the game or stops play mode in the editor.
+    /// </summary>
     void QuitGame()
     {
 #if UNITY_EDITOR

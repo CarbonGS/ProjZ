@@ -9,12 +9,18 @@ public class ZombieRoundManager : MonoBehaviour
 
     private GameManager gameManager;
 
+    /// <summary>
+    /// Initialize the ZombieRoundManager and start checking spawners.
+    /// </summary>
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindAnyObjectByType<GameManager>();
         InvokeRepeating(nameof(CheckSpawners), 0f, checkInterval);
     }
 
+    /// <summary>
+    /// Check each spawner to see if it should activate and spawn a zombie.
+    /// </summary>
     void CheckSpawners()
     {
         if (gameManager == null || player == null) return;

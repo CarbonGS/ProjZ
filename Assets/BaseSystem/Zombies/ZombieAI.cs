@@ -13,18 +13,22 @@ public class ZombieAI : MonoBehaviour
     private float lastAttackTime; // Time of the last attack
     private ZombieAudio zombieAudio; // Reference to ZombieAudio component
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    /// <summary>
+    /// Initialize the ZombieAI script.
+    /// </summary>
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         playerCharacter = GameObject.FindWithTag("Player");
         zombieAudio = GetComponent<ZombieAudio>();
 
-        float multiplier = FindObjectOfType<GameManager>().damageMultiplier;
+        float multiplier = FindAnyObjectByType<GameManager>().damageMultiplier;
         damage *= multiplier;
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called once per frame to control the zombie's behavior.
+    /// </summary>
     void Update()
     {
         if (player == null) return; // No player to follow
@@ -46,6 +50,9 @@ public class ZombieAI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Attack the player and apply damage.
+    /// </summary>
     void AttackPlayer()
     {
         if (playerCharacter != null)
@@ -53,7 +60,7 @@ public class ZombieAI : MonoBehaviour
             zombieAudio.PlayAttackSound();
             playerCharacter.GetComponent<Player>().TakeDamage(damage);
         }
-        else         
+        else
         {
             Debug.LogWarning("Player character not found for attacking.");
         }

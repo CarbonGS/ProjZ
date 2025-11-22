@@ -25,6 +25,9 @@ public class Gun : MonoBehaviour
     public float recoilDistance = 0.1f;
     public float recoilSpeed = 10f;
 
+    /// <summary>
+    /// Initializes the gun's position at the start of the game.
+    /// </summary>
     void Start()
     {
         if (gunTransform == null)
@@ -34,6 +37,9 @@ public class Gun : MonoBehaviour
         initialLocalPosition = gunTransform.localPosition;
     }
 
+    /// <summary>
+    /// Handles the shooting logic and recoil application in every frame.
+    /// </summary>
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -64,6 +70,9 @@ public class Gun : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Starts the shooting audio and sets the shooting state to active.
+    /// </summary>
     void StartShooting()
     {
         if (!isShooting)
@@ -79,6 +88,9 @@ public class Gun : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Stops the shooting audio and sets the shooting state to inactive.
+    /// </summary>
     void StopShooting()
     {
         if (isShooting)
@@ -95,6 +107,9 @@ public class Gun : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Applies recoil to the gun, simulating a realistic shooting effect.
+    /// </summary>
     public void ApplyRecoil()
     {
         StartCoroutine(RecoilRoutine());

@@ -15,16 +15,27 @@ public class Entity : MonoBehaviour
             if (health <= 0)
             {
                 playerCharacter.GetComponent<Player>().points += 100;
-                FindObjectOfType<GameManager>().RegisterKill(); // Register kill in GameManager
-                FindObjectOfType<UI>()?.UpdatePointsText();
+                FindAnyObjectByType<GameManager>().RegisterKill(); // Register kill in GameManager
+                FindAnyObjectByType<UI>()?.UpdatePointsText();
                 Destroy(gameObject);
             }
         }
     }
 
+    /// <summary>
+    /// Initializes the entity's health and finds the player character on start.
+    /// </summary>
     void Start()
     {
-        Health = StartHealth * FindObjectOfType<GameManager>().healthMultiplier;
+        Health = StartHealth * FindAnyObjectByType<GameManager>().healthMultiplier;
         playerCharacter = GameObject.FindWithTag("Player");
+    }
+
+    /// <summary>
+    /// Updates the entity's state every frame. (Describe specific updates if known)
+    /// </summary>
+    void Update()
+    {
+        // Add any per-frame logic here
     }
 }
