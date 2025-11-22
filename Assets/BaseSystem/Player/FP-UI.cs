@@ -1,13 +1,12 @@
 using UnityEngine;
 using TMPro;
 
-public class UI : MonoBehaviour
+public class FPUI : MonoBehaviour
 {
     public TextMeshProUGUI roundText;
     public TextMeshProUGUI pointsText;
     private GameManager gameManager;
     public GameObject player;
-    public MainMenuManager mmm;
 
     /// <summary>
     /// Initializes the player and game manager references

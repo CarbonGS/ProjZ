@@ -25,6 +25,9 @@ public class Gun : MonoBehaviour
     public float recoilDistance = 0.1f;
     public float recoilSpeed = 10f;
 
+    private bool isPaused = false; // Local pause state
+    private Coroutine recoilCoroutine;
+
     /// <summary>
     /// Initializes the gun's position at the start of the game.
     /// </summary>
@@ -37,35 +40,44 @@ public class Gun : MonoBehaviour
         initialLocalPosition = gunTransform.localPosition;
     }
 
+    public void SetPauseState(bool paused) // Only called by PauseMenuManager
+    {
+        isPaused = paused;
+    }
+
     /// <summary>
     /// Handles the shooting logic and recoil application in every frame.
     /// </summary>
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!isPaused) // Don't shoot if the game is paused
         {
-            StartShooting();
-        }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            StopShooting();
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                StartShooting();
+            }
 
-        if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
-        {
-            OnGunShoot.Invoke();
-            ApplyRecoil();
-            nextFireTime = Time.time + fireRate;
-        }
-
-        // Handle short click playback
-        if (isShooting && !Input.GetMouseButton(0))
-        {
-            shootTimer += Time.deltaTime;
-            if (shootTimer >= clickDuration)
+            if (Input.GetMouseButtonUp(0))
             {
                 StopShooting();
+            }
+
+            if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
+            {
+                OnGunShoot.Invoke();
+                ApplyRecoil();
+                nextFireTime = Time.time + fireRate;
+            }
+
+            // Handle short click playback
+            if (isShooting && !Input.GetMouseButton(0))
+            {
+                shootTimer += Time.deltaTime;
+                if (shootTimer >= clickDuration)
+                {
+                    StopShooting();
+                }
             }
         }
     }
@@ -112,7 +124,9 @@ public class Gun : MonoBehaviour
     /// </summary>
     public void ApplyRecoil()
     {
-        StartCoroutine(RecoilRoutine());
+        if (recoilCoroutine != null)
+            StopCoroutine(recoilCoroutine);
+        recoilCoroutine = StartCoroutine(RecoilRoutine());
     }
 
     private IEnumerator RecoilRoutine()

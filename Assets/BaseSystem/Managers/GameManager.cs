@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
         spawnRateMultiplier += 0.02f;
 
         Debug.Log($"Round {currentRound} started! Health x{healthMultiplier}, Damage x{damageMultiplier}, SpawnRate x{spawnRateMultiplier}");
-        FindAnyObjectByType<UI>()?.UpdateRoundText();
+        FindAnyObjectByType<FPUI>()?.UpdateRoundText();
     }
 
     /// <summary>

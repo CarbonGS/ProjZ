@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
     public AudioSource playerAudio; // Audio source for player sounds
     public AudioClip dieSound; // Sound played on player death
 
+    // UI Management
+    private GameObject pauseMenu; // Reference to the pause menu UI
+
     /// <summary>
     /// Initializes the player object, setting up references and initial health values.
     /// </summary>
@@ -29,6 +32,7 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth; // Initialize current health
         targetHealth = maxHealth; // Initialize target health
     }
+
 
     /// <summary>
     /// Updates the player state each frame, handling health regeneration and UI updates.
@@ -51,6 +55,11 @@ public class Player : MonoBehaviour
             {
                 isHealing = false; // Stop healing when at max health
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+
         }
     }
 

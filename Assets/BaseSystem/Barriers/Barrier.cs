@@ -86,7 +86,7 @@ public class Barrier : MonoBehaviour
         }
         player.points -= (int)buyValue;
         notificationText.text = "";
-        FindAnyObjectByType<UI>()?.UpdatePointsText();
+        FindAnyObjectByType<FPUI>()?.UpdatePointsText();
         Destroy(gameObject); // Remove barrier after purchase
         Debug.Log("Barrier purchased for " + buyValue + " points. Remaining points: " + player.points);
     }

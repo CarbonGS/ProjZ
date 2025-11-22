@@ -16,7 +16,7 @@ public class Entity : MonoBehaviour
             {
                 playerCharacter.GetComponent<Player>().points += 100;
                 FindAnyObjectByType<GameManager>().RegisterKill(); // Register kill in GameManager
-                FindAnyObjectByType<UI>()?.UpdatePointsText();
+                FindAnyObjectByType<FPUI>()?.UpdatePointsText();
                 Destroy(gameObject);
             }
         }
