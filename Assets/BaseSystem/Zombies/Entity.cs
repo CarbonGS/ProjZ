@@ -31,11 +31,4 @@ public class Entity : MonoBehaviour
         playerCharacter = GameObject.FindWithTag("Player");
     }
 
-    /// <summary>
-    /// Updates the entity's state every frame. (Describe specific updates if known)
-    /// </summary>
-    void Update()
-    {
-        // Add any per-frame logic here
-    }
 }

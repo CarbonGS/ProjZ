@@ -129,6 +129,9 @@ public class Gun : MonoBehaviour
         recoilCoroutine = StartCoroutine(RecoilRoutine());
     }
 
+    /// <summary>
+    /// Coroutine for handling the recoil animation.
+    /// </summary>
     private IEnumerator RecoilRoutine()
     {
         Vector3 recoilPos = initialLocalPosition - Vector3.forward * recoilDistance;

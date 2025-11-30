@@ -13,7 +13,7 @@ public class ZombieAudio : MonoBehaviour
     private float nextGroanTime = 0f;
 
     /// <summary>
-    /// Start is called once before the first execution of Update after the MonoBehaviour is created
+    /// Called once before the first execution of Update after the MonoBehaviour is created.
     /// </summary>
     void Start()
     {
@@ -21,7 +21,7 @@ public class ZombieAudio : MonoBehaviour
     }
 
     /// <summary>
-    /// Update is called once per frame
+    /// Called once per frame. Handles zombie audio logic.
     /// </summary>
     void Update()
     {

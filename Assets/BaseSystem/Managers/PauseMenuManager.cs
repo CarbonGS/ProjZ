@@ -11,14 +11,19 @@ public class PauseMenuManager : MonoBehaviour
     public MainMenuManager mmm;
     private Gun gun;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    /// <summary>
+    /// Called once before the first execution of Update after the MonoBehaviour is created.
+    /// Initializes the gun reference and hides the pause menu UI.
+    /// </summary>
     void Start()
     {
         gun = FindFirstObjectByType<Gun>();
         pauseMenuUI.SetActive(false);
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Called once per frame. Handles pause input and ensures gun reference is valid.
+    /// </summary>
     void Update()
     {
         if (gun == null)

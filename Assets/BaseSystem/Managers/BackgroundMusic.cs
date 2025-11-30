@@ -6,8 +6,7 @@ public class BackgroundMusic : MonoBehaviour
     public AudioClip backgroundMusicClip;
 
     /// <summary>
-    /// Initializes the audio source by assigning the background music clip, 
-    /// enabling looping, and starting playback.
+    /// Called once before the first execution of Update after the MonoBehaviour is created.
     /// </summary>
     void Start()
     {
@@ -17,7 +16,7 @@ public class BackgroundMusic : MonoBehaviour
     }
 
     /// <summary>
-    /// Ensures the background music keeps playing by restarting it if it stops.
+    /// Called once per frame. Handles background music logic.
     /// </summary>
     void Update()
     {

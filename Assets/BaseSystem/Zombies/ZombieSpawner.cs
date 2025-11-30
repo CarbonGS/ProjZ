@@ -10,7 +10,7 @@ public class ZombieSpawner : MonoBehaviour
     public float spawnInterval; // Time interval between spawns
 
     /// <summary>
-    /// Start is called once before the first execution of Update after the MonoBehaviour is created
+    /// Called once before the first execution of Update after the MonoBehaviour is created.
     /// </summary>
     void Start()
     {
@@ -18,7 +18,7 @@ public class ZombieSpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// Update is called once per frame
+    /// Called once per frame. Handles zombie spawning logic.
     /// </summary>
     void Update()
     {
